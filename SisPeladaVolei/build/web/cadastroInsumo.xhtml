@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Cadastro Insumo</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menuPrime.xhtml"/>
+        <p:growl id="gro"/>
+        <h1>Sistema de pelada de volei</h1>
+
+        <h:form id="formCadInsumo">
+
+            <p:fieldset legend="Cadastro de Insumo">
+
+                <p:panelGrid columns="3">
+
+                    <h:outputText value="Nome:"/>
+                    <p:inputText id="txtNome" value="#{insumoController.cadastro.nome}"
+                                 required="true" requiredMessage="O Nome é obrigatório"/>
+                    <p:message for="txtNome"/>
+
+                    <h:outputText value="Descrição:"/>
+                    <p:inputText id="txtDescricao" value="#{insumoController.cadastro.descricao}"
+                                 required="true" requiredMessage="A descrição é obrigatória"/>
+                    <p:message for="txtDescricao"/>
+                    
+                    <h:outputText value="Valor Unitário:"/>
+                    <p:inputText id="valorUnitario" value="#{insumoController.cadastro.valorUnitario}"
+                                 required="true" requiredMessage="O Valor Unitário é obrigatorio"/>
+                    <p:message for="valorUnitario"/>
+
+                </p:panelGrid>
+
+                <p:commandButton value="cadastrar" 
+                                 oncomplete="PF('widDialCadInsumo').show()" />
+                
+
+            </p:fieldset>
+            
+            <p:dialog id="dialCadInsumo" visible="false" 
+                      showEffect="fade" modal="true" 
+                      widgetVar="widDialCadInsumo">
+                
+                <h:outputText value="Deseja realmente cadastrar o Insumo?"/><br/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadInsumo').hide()"/>
+                <p:commandButton value="sim" action="#{insumoController.inserir()}"
+                                 oncomplete="PF('widDialCadInsumo').hide()" update="@form :gro"/>
+                    
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

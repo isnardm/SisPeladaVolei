@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menuPrime.xhtml"/>
+        <p:growl id="gro"/>
+        <h1>Sistema de pelada de volei de Natasha</h1>
+
+        <h:form id="formCadJogador">
+
+            <p:fieldset legend="Cadastro de Jogador">
+
+                <p:panelGrid columns="3">
+
+                    <h:outputText value="Nome:"/>
+                    <p:inputText id="txtnome" value="#{jController.cadastro.nome}"
+                                 required="true" requiredMessage="O Nome é obrigatório"/>
+                    <p:message for="txtnome"/>
+
+                    <h:outputText value="Idade:"/>
+                    <p:inputText id="txtIdade" value="#{jController.cadastro.idade}"
+                                 required="true" requiredMessage="A idade é obrigatória"/>
+                    <p:message for="txtIdade"/>
+                    
+                    <h:outputText value="Zapzap:"/>
+                    <p:inputText id="txtZap" value="#{jController.cadastro.zapzap}"
+                                 required="true" requiredMessage="O Zap é obrigatorio"/>
+                    <p:message for="txtZap"/>
+
+                    <h:outputText value="Nível:"/>
+                    <p:rating value="#{jController.cadastro.estrela}"/>
+                    <h:outputText/>
+
+                    
+                    <p:inputText value="#{senha}"/>
+                </p:panelGrid>
+
+                <p:commandButton value="cadastrar" 
+                                 oncomplete="PF('widDialCadJogador').show()" />
+                
+
+            </p:fieldset>
+            
+            <p:dialog id="dialCadJogador" visible="false" 
+                      showEffect="fade" modal="true" 
+                      widgetVar="widDialCadJogador">
+                
+                <h:outputText value="Deseja realmente cadastrar o jogar?"/><br/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadJogador').hide()"/>
+                <p:commandButton value="sim" action="#{jController.inserir()}"
+                                 oncomplete="PF('widDialCadJogador').hide()" update="@form :gro"/>
+                    
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

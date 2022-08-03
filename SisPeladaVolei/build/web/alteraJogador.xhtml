@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menuPrime.xhtml"/>
+        <h:form id="formAlteraJogador">
+            <p:fieldset legend="Altere o Jogador">
+
+                <p:panelGrid columns="2">
+
+                    <h:outputText value="Id:"/>
+                    <h:outputText value="#{jController.selecionado.id}"/>
+                    
+                    <h:outputText value="Nome:"/>
+                    <p:inputText value="#{jController.selecionado.nome}"/>
+
+                    <h:outputText value="Idade:"/>
+                    <p:inputText value="#{jController.selecionado.idade}"/>
+
+                    <h:outputText value="Zapzap:"/>
+                    <p:inputText value="#{jController.selecionado.zapzap}"/>
+
+                    <h:outputText value="Nível:"/>
+                    <p:rating value="#{jController.selecionado.estrela}"/>
+
+
+                </p:panelGrid>
+
+                <p:commandButton value="alterar" 
+                                 oncomplete="PF('widDialAltJogador').show()" 
+                                 action="#{jController.alterar()}">
+                    <p:confirm message="Deseja alterar o jogador!"/>
+                </p:commandButton>
+                
+
+            </p:fieldset>
+            
+            <p:confirmDialog header="informação!" global="true">
+                <p:commandButton value="nao" class="ui-confirmdialog-no"/>
+                <p:commandButton value="sim" class="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+        </h:form>
+    </h:body>
+</html>
+

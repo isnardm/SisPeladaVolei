@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Insumos</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menuPrime.xhtml"/>
+        <p:growl id="gro" showDetail="true"/>
+        
+        <h:form id="formApresentaInsumos">
+            
+            <p:dataTable id="tblInsumos" var="item" value="#{insumoController.readAll()}" 
+                         paginator="true" rows="10" selectionMode="single"
+                         selection="#{insumoController.selecionado}"
+                         rowKey="#{item.id}">
+                
+                <p:column headerText="Id" >
+                    #{item.id}
+                </p:column>
+                
+                <p:column filterBy="#{item.nome}" sortBy="#{item.nome}">
+                    <f:facet name="header">
+                       Nome 
+                    </f:facet>
+                    #{item.nome}
+                </p:column>
+                <p:column headerText="Descricao">
+                    #{item.descricao}
+                </p:column>
+                <p:column headerText="ValorUnitario">
+                    #{item.valorUnitario}
+                </p:column>
+                
+            </p:dataTable>
+            
+            <p:commandButton value="visualizar" 
+                             oncomplete="PF('widDialVisualInsumo').show()"
+                             update=":formApresentaInsumos:dialVisualInsumo"/>
+            
+            <p:commandButton value="Alterar" action="alteraInsumo.xhtml"/>
+            <p:commandButton value="deletar"  update="@form :gro" action="#{insumoController.deletar()}">
+                <p:confirm message="deseja deletar o Insumo" header="atenção!"/>
+            </p:commandButton>
+            
+            <p:dialog id="dialVisualInsumo" visible="false"
+                      widgetVar="widDialVisualInsumo" modal="true">
+                
+                <p:panelGrid columns="2">
+                    <h:outputText value="Nome:"/>
+                    <h:outputText value="#{insumoController.selecionado.nome}"/>
+
+                    <h:outputText value="Descricao"/>
+                    <h:outputText value="#{insumoController.selecionado.descricao}"/>
+
+                    <h:outputText value="Valor Unitário:"/>
+                    <h:outputText value="#{insumoController.selecionado.valorUnitario}"/>
+
+                </p:panelGrid>
+                
+            </p:dialog>
+            
+            <p:confirmDialog global="true">
+                 <p:commandButton value="nao" class="ui-confirmdialog-no"/>
+                    <p:commandButton value="sim" class="ui-confirmdialog-yes"/>
+            </p:confirmDialog>
+            
+        </h:form>
+        
+    </h:body>
+</html>
+
