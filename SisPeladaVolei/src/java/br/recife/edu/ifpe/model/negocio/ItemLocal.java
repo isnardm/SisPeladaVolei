@@ -13,7 +13,7 @@ public class ItemLocal {
     
     private int id;
     private double valor;
-    private Local local;
+    private Localpelada local;
 
     public int getId() {
         return id;
@@ -31,11 +31,11 @@ public class ItemLocal {
         this.valor = valor;
     }
 
-    public Local getLocal() {
+    public Localpelada getLocal() {
         return local;
     }
 
-    public void setLocal(Local local) {
+    public void setLocal(Localpelada local) {
         this.local = local;
     }
     
